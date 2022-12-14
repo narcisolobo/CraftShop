@@ -39,8 +39,8 @@ public class User
     [Compare("Password", ErrorMessage = "Passwords do not match.")]
     public string ConfirmPassword { get; set; }
 
-    // public List<Hobby> Hobbies { get; set; } = new List<Hobby>();
-    // public List<Enthusiast> Enthusiasts { get; set; } = new List<Enthusiast>();
+    public List<Craft> Crafts { get; set; } = new List<Craft>();
+    public List<Order> Orders { get; set; } = new List<Order>();
 
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public DateTime UpdatedAt { get; set; } = DateTime.Now;
