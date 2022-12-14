@@ -17,4 +17,11 @@ public class CraftsController : Controller
     {
         return View("NewCraft");
     }
+
+    [Protected]
+    [HttpGet("crafts")]
+    public ViewResult AllCrafts()
+    {
+        return View("AllCrafts");
+    }
 }
