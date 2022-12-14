@@ -18,10 +18,17 @@ public class CraftsController : Controller
         return View("NewCraft");
     }
 
-    [Protected]
+    // [Protected]
     [HttpGet("crafts")]
     public ViewResult AllCrafts()
     {
         return View("AllCrafts");
+    }
+
+    // [Protected]
+    [HttpGet("crafts/{craftId}")]
+    public ViewResult ShowCraft(int craftId)
+    {
+        return View("ShowCraft");
     }
 }

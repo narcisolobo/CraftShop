@@ -1,0 +1,32 @@
+@{
+    int userId = 0;
+    int? sessionUserId = Context.Session.GetInt32("userId");
+    if (sessionUserId is not null)
+    {
+        userId = (int)sessionUserId;
+    }
+}
+
+@model Order
+
+<div class="card">
+    <h5 class="card-header">Purchase This Item</h5>
+    <div class="card-body">
+        <form asp-action="CreateOrder" asp-controller="Orders" method="post">
+            <input type="hidden" asp-for="UserId" value="@userId" />
+            <input type="hidden" asp-for="CraftId" value="@Model.CraftId" />
+            <div class="mb-3">
+                <label asp-for="Quantity" class="form-label">Quantity:</label>
+                <select asp-for="Quantity" class="form-select">
+                    @for (int i = 0; i <= 5; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+            </div>
+            <div class="d-flex justify-content-end">
+                <input type="submit" value="Buy" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
+</div>

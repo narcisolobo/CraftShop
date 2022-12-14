@@ -1,0 +1,30 @@
+@{
+    ViewData["Title"] = "Craft Details";
+
+    int userId = 0;
+    int? sessionUserId = Context.Session.GetInt32("userId");
+    if (sessionUserId is not null)
+    {
+        userId = (int)sessionUserId;
+    }
+}
+
+<h3 class="mb-3">Spider-Punk Funko Pop</h3>
+
+<div class="row">
+    <div class="col">
+        <img src="https://i.imgur.com/tkICv77.jpg" alt="Spider-Punk" class="img-fluid shadow">
+    </div>
+    <div class="col">
+        <p class="mb-1">By: Nora</p>
+        <h5>Price: $50.00</h5>
+        <h5 class="text-secondary">Only 2 in stock!</h5>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, corrupti dicta ratione rerum mollitia amet temporibus autem. Tempora cumque incidunt aspernatur itaque. Earum impedit in minus iste natus sunt libero.</p>
+        @{
+            Order order = new Order();
+            @* order.CraftId = Model.CraftId; *@
+            order.CraftId = 1;
+            @await Html.PartialAsync("_CreateOrder", order);
+        }
+    </div>
+</div>
