@@ -1,0 +1,47 @@
+@{
+    ViewData["Title"] = "Sell a Craft";
+
+    int userId = 0;
+    int? sessionUserId = Context.Session.GetInt32("userId");
+    if (sessionUserId is not null)
+    {
+        userId = (int)sessionUserId;
+    }
+}
+
+@model Craft
+
+<div class="card">
+    <h3 class="card-header">Sell a Craft</h3>
+    <div class="card-body">
+        <form asp-action="CreateCraft" asp-controller="Crafts" method="post">
+            <div class="row mb-3">
+                <div class="col">
+                    <label asp-for="ImageUrl" class="form-label">Image URL:</label>
+                    <input asp-for="ImageUrl" class="form-control" placeholder="http://example.com/image.jpeg" />
+                    <span asp-validation-for="ImageUrl" class="form-text text-danger"></span>
+                </div>
+                <div class="col">
+                    <label asp-for="Price" class="form-label">Price:</label>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input asp-for="Price" class="form-control" type="number" step=".01" />
+                    </div>
+                    <span asp-validation-for="Price" class="form-text text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label asp-for="Title" class="form-label">Title:</label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="form-text text-danger"></span>
+                </div>
+                <div class="col">
+                    <label asp-for="Quantity" class="form-label">Quantity Available:</label>
+                    <input asp-for="Quantity" class="form-control" />
+                    <span asp-validation-for="Quantity" class="form-text text-danger"></span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

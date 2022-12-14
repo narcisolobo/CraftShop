@@ -9,14 +9,6 @@ public class User
     [Key]
     public int UserId { get; set; }
 
-    [Required(ErrorMessage = "Please enter your first name.")]
-    [MinLength(2, ErrorMessage = "First name must be at least 2 characters long.")]
-    public string FirstName { get; set; }
-
-    [Required(ErrorMessage = "Please enter your last name.")]
-    [MinLength(2, ErrorMessage = "Last name must be at least 2 characters long.")]
-    public string LastName { get; set; }
-
     [UniqueUsername]
     [Required(ErrorMessage = "Please enter your username.")]
     [MinLength(3, ErrorMessage = "Username must be at least 3 characters long.")]
