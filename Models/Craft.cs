@@ -16,6 +16,7 @@ public class Craft
     public string ImageUrl { get; set; }
 
     [Required]
+    [Range(0, double.MaxValue)]
     [DataType(DataType.Currency)]
     public double? Price { get; set; }
 

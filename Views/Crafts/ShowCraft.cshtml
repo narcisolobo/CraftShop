@@ -9,21 +9,37 @@
     }
 }
 
-<h3 class="mb-3">Spider-Punk Funko Pop</h3>
+@model Craft
+
+<h3 class="mb-3">@Model.Title</h3>
 
 <div class="row">
     <div class="col">
-        <img src="https://i.imgur.com/tkICv77.jpg" alt="Spider-Punk" class="img-fluid shadow">
+        <div class="p-3 shadow">
+            <img src="@Model.ImageUrl" alt="@Model.Title" class="img-fluid">
+        </div>
     </div>
     <div class="col">
-        <p class="mb-1">By: Nora</p>
-        <h5>Price: $50.00</h5>
-        <h5 class="text-secondary">Only 2 in stock!</h5>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, corrupti dicta ratione rerum mollitia amet temporibus autem. Tempora cumque incidunt aspernatur itaque. Earum impedit in minus iste natus sunt libero.</p>
+
+        @if (Model.User is not null)
+        {
+            <p class="mb-1">By: @Model.User.Username</p>
+        }
+        @{
+            double price = 0;
+            if (Model.Price is not null)
+            {
+                price = (double)Model.Price;
+            }
+        }
+
+        <h5>Price: @price.ToString("C")</h5>
+        <h5 class="text-secondary">Only @Model.Quantity in stock!</h5>
+        <p>@Model.Description</p>
+
         @{
             Order order = new Order();
-            @* order.CraftId = Model.CraftId; *@
-            order.CraftId = 1;
+            order.CraftId = Model.CraftId;
             @await Html.PartialAsync("_CreateOrder", order);
         }
     </div>

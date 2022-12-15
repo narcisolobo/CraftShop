@@ -1,43 +1,41 @@
 @{
     ViewData["Title"] = "Shop Crafts";
 }
+
+@model List<Craft>
+
 <h3 class="mb-3">Shop Crafts</h3>
 
 <div class="row pb-5" data-masonry='{"percentPosition": true }'>
-    <div class="col-sm-6 col-lg-4 mb-4">
-        <div class="card shadow">
-            <img src="https://i.imgur.com/tkICv77.jpg" alt="Spider-Punk" class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title"><a href="/crafts/1">Card title that wraps to a new line</a></h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+    @foreach (Craft craft in Model)
+    {
+        <div class="col-sm-6 col-lg-4 mb-4">
+            <div class="card shadow">
+                <img src="@craft.ImageUrl" alt="@craft.Title" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a
+                            asp-action="ShowCraft"
+                            asp-controller="Crafts"
+                            asp-route-craftId="@craft.CraftId"
+                            >@craft.Title
+                        </a>
+                    </h5>
+                    @if (craft.User is not null)
+                    {
+                        <p class="card-text text-muted">By: @craft.User.Username</p>
+                    }
+                    @{
+                        double price = 0;
+                        if (craft.Price is not null)
+                        {
+                            price = (double)craft.Price;
+                        }
+                    }
+                    <p class="card-text">@price</p>
+                    <p class="card-text">Only @craft.Quantity in stock!</p>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-sm-6 col-lg-4 mb-4">
-        <div class="card shadow">
-            <img src="https://i.imgur.com/e7CaanE.jpg" alt="Spider-Punk" class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title"><a href="/crafts/1">Card title that wraps to a new line</a></h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6 col-lg-4 mb-4">
-        <div class="card shadow">
-            <img src="https://i.imgur.com/sBR2aWs.jpg" alt="Spider-Punk" class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title"><a href="/crafts/1">Card title that wraps to a new line</a></h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6 col-lg-4 mb-4">
-        <div class="card shadow">
-            <img src="https://i.imgur.com/wHMwWAI.jpg" alt="Spider-Punk" class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title"><a href="/crafts/1">Card title that wraps to a new line</a></h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-        </div>
-    </div>
+    }
 </div>

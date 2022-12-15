@@ -12,13 +12,13 @@
 <div class="card">
     <h5 class="card-header">Purchase This Item</h5>
     <div class="card-body">
-        <form asp-action="CreateOrder" asp-controller="Orders" method="post">
+        <form asp-action="CreateOrder" asp-controller="Crafts" method="post">
             <input type="hidden" asp-for="UserId" value="@userId" />
             <input type="hidden" asp-for="CraftId" value="@Model.CraftId" />
             <div class="mb-3">
-                <label asp-for="Quantity" class="form-label">Quantity:</label>
                 <select asp-for="Quantity" class="form-select">
-                    @for (int i = 0; i <= 5; i++)
+                    <option value="0" selected hidden disabled>Select Quantity:</option>
+                    @for (int i = 1; i <= ViewBag.quantity; i++)
                     {
                         <option value="@i">@i</option>
                     }

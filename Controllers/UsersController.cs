@@ -3,6 +3,7 @@ using CraftShop.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore;
 
 namespace CraftShop.Controllers;
 
@@ -61,7 +62,7 @@ public class UsersController : Controller
     }
 
     [Protected]
-    [HttpGet("users/dashbaord")]
+    [HttpGet("users/dashboard")]
     public ViewResult Dashboard()
     {
         int userId = 0;
@@ -71,7 +72,28 @@ public class UsersController : Controller
             userId = (int)sessionUserId;
         }
         User? user = _context.Users.FirstOrDefault(user => user.UserId == userId);
-        return View("Dashboard", user);
+        int quantitySold = _context.Orders
+            .Include(o => o.Craft)
+            .Where(o => o.Craft.UserId == userId)
+            .Sum(o => o.Quantity);
+        
+        double totalEarned = (double)_context.Orders
+            .Include(o => o.Craft)
+            .Where(o => o.Craft.UserId == userId)
+            .Sum(o => o.Craft.Price);
+        
+        int quantityBought = _context.Orders
+            .Where(o => o.UserId == userId)
+            .Sum(o => o.Quantity);
+        
+        Dashboard dashboard = new Dashboard()
+        {
+            User = user,
+            QuantitySold = quantitySold,
+            QuantityBought = quantityBought,
+            TotalEarned = totalEarned,
+        };
+        return View("Dashboard", dashboard);
     }
 
     [Protected]

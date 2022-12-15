@@ -1,1 +1,10 @@
-<h1>Welcome @Context.Session.GetString("username")</h1>
+@model Dashboard
+
+<h1 class="mb-3">Welcome @Model.User.Username!</h1>
+
+<h2>Seller Stats:</h2>
+<h3 class="ms-5">You've sold @Model.QuantitySold items!</h3>
+<h3 class="ms-5">You've made @Model.TotalEarned.ToString("C") so far!</h3>
+<br>
+<h2>Buyer Stats:</h2>
+<h3 class="ms-5">You've bought @Model.QuantityBought items!</h3>
